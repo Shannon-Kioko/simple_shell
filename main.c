@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char *env[])
 {
     data_of_program data_struct = {NULL}, *data = &data_struct;
     char *prompt = "";
-
+   
     data_init(data, argc, argv, env);
 
     signal(SIGINT, handle_ctrl_c);
@@ -73,21 +73,21 @@ void data_init(data_of_program *data, int argc, char *argv[], char **env)
     data->tokens = NULL;
 
     data->env = malloc(sizeof(char *) * 50);
-    if (env)
-    {
-        for (; env[i]; i++)
-        {
-            data->env[i] = str_duplicate(env[i]);
-        }
-    }
-    data->env[i] = NULL;
-    env = data->env;
+	if (env)
+	{
+		for (; env[i]; i++)
+	{
+	data->env[i] = str_duplicate(env[i]);
+		}
+	}
+	data->env[i] = NULL;
+	env = data->env;
 
-    data->alias_list = malloc(sizeof(char *) * 20);
-    for (i = 0; i < 20; i++)
-    {
-        data->alias_list[i] = NULL;
-    }
+	data->alias_list = malloc(sizeof(char *) * 20);
+	for (i = 0; i < 20; i++)
+	{
+		data->alias_list[i] = NULL;
+	}
 }
 
 /**
@@ -97,35 +97,35 @@ void data_init(data_of_program *data, int argc, char *argv[], char **env)
  */
 void prompt_loop(char *prompt, data_of_program *data)
 {
-    int error_code = 0, string_len = 0;
+	int error_code = 0, string_len = 0;
 
-    while (++(data->exec_counter))
-    {
-        print_string(prompt);
+	while (++(data->exec_counter))
+	{
+		print_string(prompt);
 
-        error_code = string_len = _getline(data);
+		error_code = string_len = _getline(data);
 
-        if (error_code == EOF)
-        {
-            free_all(data);
-            exit(errno); /* If EOF is the first character of the string, exit */
-        }
+		if (error_code == EOF)
+		{
+			free_all(data);
+			exit(errno); /* If EOF is the first character of the string, exit */
+		}
 
-        if (string_len >= 1)
-        {
-            expand_alias(data);
-            expand_var(data);
-            tokenize(data);
+		if (string_len >= 1)
+		{
+			expand_alias(data);
+			expand_var(data);
+			tokenize(data);
 
-            if (data->tokens[0])
-            {
-                /* If text is given to the prompt, execute */
-                error_code = execute(data);
-                if (error_code != 0)
-                    print_err(error_code, data);
-            }
+			if (data->tokens[0])
+			{
+				/* If text is given to the prompt, execute */
+				error_code = execute(data);
+				if (error_code != 0)
+					print_err(error_code, data);
+			}
 
-            free_recurrent_data(data);
-        }
-    }
+			free_recurrent_data(data);
+		}
+	}
 }
