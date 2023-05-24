@@ -2,16 +2,16 @@
 #define SHELL_H
 
 #include <stdio.h> /* for printf*/
-#include <unistd.h> /* for fork, execve*/
 #include <stdlib.h>
-#include <string.h> /* for strtok*/
+#include <unistd.h> /* for fork, execve*/
 #include <stddef.h>
-#include <errno.h> /* for errno and perror */
+#include <string.h> /* for strtok*/
 #include <sys/types.h> /* for type pid */
 #include <sys/wait.h> /* for wait */
+#include <errno.h> /* for errno and perror */
+#include <fcntl.h> /* for open files*/
 #include <sys/stat.h> /* for use of stat function */
 #include <signal.h> /* for signal management */
-#include <fcntl.h> /* for open files*/
 
 /************* MACROS **************/
 
@@ -24,13 +24,13 @@
  * @program_name: the name of the executable
  * @input_line: pointer to the input read for _getline
  * @command_name: pointer to the first command typed by the user
+ * @tokens: pointer to array of tokenized input
  * @exec_counter: number of excecuted comands
  * @file_descriptor: file descriptor to the input of commands
- * @tokens: pointer to array of tokenized input
  * @env: copy of the environ
  * @alias_list: array of pointers with aliases.
  */
-struct info
+struct program_info
 {
 	char *program_name;
 	char *input_line;
@@ -43,13 +43,13 @@ struct info
 };
 
 /**
- * data_of_program - Typedef for struct info
+ * data_of_program - Typedef for struct program_info
  */
 
-typedef struct info data_of_program;
+typedef struct program_info data_of_program;
 
 /**
- * struct builtins - struct for the builtins
+ * struct builtin_func - struct for the builtins
  * @builtin: the name of the builtin
  * @function: the associated function to be called for each builtin
  */
@@ -65,22 +65,22 @@ typedef struct builtin_func
 
 /*========  shell.c  ========*/
 
-/* Inicialize the struct with the info of the program */
+/* Initialize the struct with the info of the program */
 void data_init(data_of_program *data, int arc, char *argv[], char **env);
 
 /* Makes the infinite loop that shows the prompt*/
 void prompt_loop(char *prompt, data_of_program *data);
 
-/* Print the prompt in a new line */
+/* Prints the prompt in a new line */
 void handle_ctrl_c(int opr UNUSED);
 
 
 /*========  _getline.c  ========*/
 
-/* Read one line of the standar input*/
+/* Read one line of the stdin*/
 int _getline(data_of_program *data);
 
-/* split the each line for the logical operators if it exist */
+/* Split the line for logical operators if they exist */
 int split_ops_logical(char *array_commands[], int i, char array_operators[]);
 
 
@@ -92,13 +92,13 @@ void expand_var(data_of_program *data);
 /* expand aliases */
 void expand_alias(data_of_program *data);
 
-/* append the string to the end of the buffer*/
+/* append a string to the end of the buffer*/
 int buffer_append(char *buffer, char *str);
 
 
 /*======== str_tok.c ========*/
 
-/* Separate the string in tokens using a designed delimiter */
+/* Separate the string in tokens  - uses designed delimiter */
 void tokenize(data_of_program *data);
 
 /* Creates a pointer to a part of a string */
@@ -113,7 +113,7 @@ int execute(data_of_program *data);
 
 /*======== builtins_list.c ========*/
 
-/* If match a builtin, executes it */
+/* If a match is found for a built-in, executes it */
 int builtin_executes(data_of_program *data);
 
 
@@ -122,7 +122,7 @@ int builtin_executes(data_of_program *data);
 /* Creates an array of the path directories */
 char **tokenize_path(data_of_program *data);
 
-/* Search for program in path */
+/* Search for a program in the PATH directories */
 int search_prog_in_path(data_of_program *data);
 
 
@@ -131,7 +131,7 @@ int search_prog_in_path(data_of_program *data);
 
 /*======== helpers_free.c ========*/
 
-/* Frees the memory for directories */
+/* Frees the memory for array of pointers  */
 void free_array_of_pointers(char **arr);
 
 /* Free the fields needed each loop */
@@ -158,7 +158,7 @@ int set_work_directory(data_of_program *data, char *new_dir);
 /* show help information */
 int builtin_help(data_of_program *data);
 
-/* set, unset and show alias */
+/* set, unset and show aliases */
 int builtin_alias(data_of_program *data);
 
 
@@ -167,10 +167,10 @@ int builtin_alias(data_of_program *data);
 /* Shows the environment where the shell runs */
 int builtin_env(data_of_program *data);
 
-/* create or override a variable of environment */
+/* create or override a variable of env */
 int builtin_set_env(data_of_program *data);
 
-/* delete a variable of environment */
+/* delete a variable of env */
 int builtin_unset_env(data_of_program *data);
 
 
@@ -185,10 +185,10 @@ char *env_get_key(char *name, data_of_program *data);
 /* Overwrite the value of the environment variable */
 int env_set_key(char *key, char *value, data_of_program *data);
 
-/* Remove a key from the environment */
+/* Remove a key from the env */
 int env_remove_key(char *key, data_of_program *data);
 
-/* prints the current environ */
+/* print the current environment */
 void print_env(data_of_program *data);
 
 
@@ -200,14 +200,14 @@ void print_env(data_of_program *data);
 /* Prints a string in the standar output */
 int print_string(char *str);
 
-/* Prints a string in the standar error */
+/* Prints a string in the stderr */
 int print_error_str(char *str);
 
-/* Prints a string in the standar error */
+/* Prints an error message based on the error code */
 int print_err(int err_code, data_of_program *data);
 
 
-/************** HELPERS FOR STRINGS MANAGEMENT **************/
+/************** HELPERS FOR STRING MGT **************/
 
 
 /*======== helpers_string.c ========*/
@@ -230,10 +230,10 @@ void str_reverse(char *string);
 
 /*======== helpers_numbers.c ========*/
 
-/* Cast from int to string */
+/* Convert a long number to a string */
 void long_to_string(long num, char *str, int base);
 
-/* convert an string in to a number */
+/* convert a string to a number */
 int _atoi(char *s);
 
 /* count the coincidences of character in string */
