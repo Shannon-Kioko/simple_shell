@@ -11,7 +11,6 @@ int builtin_env(ProgramData *data)
 	int i;
 	char var_name[50] = {'\0'};
 	char *var_copy = NULL;
-
 	/* If no arguments */
 	if (data->tokens[1] == NULL)
 		print_env(data);
@@ -22,14 +21,14 @@ int builtin_env(ProgramData *data)
 			/* Check if '=' character exists */
 			if (data->tokens[1][i] == '=')
 			{
-				/* Temporarily change the value of an existing variable with the same name */
+				/** Temporarily change the value of an existing
+				 * variable with the same name 
+				 */
 				var_copy = str_duplicate(env_get_key(var_name, data));
 				if (var_copy != NULL)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
-
 				/* Print the environment */
 				print_env(data);
-
 				if (env_get_key(var_name, data) == NULL)
 				{
 					/* Print the variable if it does not exist in the environment */
@@ -42,21 +41,16 @@ int builtin_env(ProgramData *data)
 					env_set_key(var_name, var_copy, data);
 					free(var_copy);
 				}
-
 				return (0);
 			}
-
 			var_name[i] = data->tokens[1][i];
 		}
-
 		errno = 2;
 		perror(data->command_name);
 		errno = 127;
 	}
-
 	return (0);
 }
-
 /**
  * builtin_set_env - Set an environment variable.
  * @data: Pointer to the program's data struct.
@@ -80,7 +74,6 @@ int builtin_set_env(ProgramData *data)
 
 	return (0);
 }
-
 /**
  * builtin_unset_env - Unset an environment variable.
  * @data: Pointer to the program's data struct.
