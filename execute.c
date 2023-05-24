@@ -14,7 +14,7 @@ int execute(data_of_program *data)
 	if (r != -1)
 		return (r);
 
-	r = find_program(data);
+	r = search_prog_in_path(data);
 	if (r)
 	{
 		return (r);
