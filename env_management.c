@@ -120,7 +120,7 @@ void print_environ(data_of_program *data)
 	int j;
 
 	for (j = 0; data->env[j]; j++) {
-		_print(data->env[j]);
-		_print("\n");
+		print_string(data->env[j]);
+		print_string("\n");
 	}
 }
