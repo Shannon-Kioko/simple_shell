@@ -18,7 +18,6 @@ int builtin_env(ProgramData *data)
 	{
 		for (i = 0; data->tokens[1][i]; i++)
 		{
-			/* Check if '=' character exists */
 			if (data->tokens[1][i] == '=')
 			{
 				/**
