@@ -10,31 +10,30 @@
 
 void long_to_string(long num, char *str, int base)
 {
-    int index = 0, inNegative = 0;
-    long convi = num;
-    char letters[] = {"0123456789abcdef"};
+	int index = 0, inNegative = 0;
+	long convi = num;
+	char letters[] = {"0123456789abcdef"};
+	
+	if (convi == 0)
+		str[index++] = '0';
 
-    if (convi == 0)
-        str[index++] = '0';
+	if (str[0] == '-')
+		inNegative = 1;
 
-    if (str[0] == '-')
-        inNegative = 1;
+	for (; convi != 0; convi /= base)
+	{
+		if (convi < 0)
+			str[index++] = letters[-(convi % base)];
+		else
+			str[index++] = letters[convi % base];
+	}
 
-    for (; convi != 0; convi /= base)
-    {
-        if (convi < 0)
-            str[index++] = letters[-(convi % base)];
-        else
-            str[index++] = letters[convi % base];
-    }
+	if (inNegative)
+		str[index++] = '-';
 
-    if (inNegative)
-        str[index++] = '-';
-
-    str[index] = '\0';
-    str_reverse(str);
+	str[index] = '\0';
+	str_reverse(str);
 }
-
 
 /**
  * _atoi - function converts a string to an integer
@@ -45,25 +44,24 @@ void long_to_string(long num, char *str, int base)
 
 int _atoi(char *s)
 {
-    int z = 1;
-    unsigned int num = 0;
+	int z = 1;
+	unsigned int num = 0;
 
-    for (; !('0' <= *s && *s <= '9') && *s != '\0'; s++)
-    {
-        if (*s == '-')
-            z *= -1;
-        if (*s == '+')
-            z *= +1;
-    }
+	for (; !('0' <= *s && *s <= '9') && *s != '\0'; s++)
+	{
+		if (*s == '-')
+			z *= -1;
+		if (*s == '+')
+			z *= +1;
+	}
 
-    for (; '0' <= *s && *s <= '9' && *s != '\0'; s++)
-    {
-        num = (num * 10) + (*s - '0');
-    }
+	for (; '0' <= *s && *s <= '9' && *s != '\0'; s++)
+	{
+		num = (num * 10) + (*s - '0');
+	}
 
-    return (num * z);
+	return (num * z);
 }
-
 
 /**
  * count_character_occurrences - function calculates the frequency of
