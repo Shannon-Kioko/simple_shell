@@ -30,7 +30,7 @@ int print_alias(data_of_program *data, char *alias_name)
 				buffer_append(buffer, "'");
 				buffer_append(buffer, data->alias_list[i] + j + 1);
 				buffer_append(buffer, "'\n");
-				_print(buffer);
+				print_string(buffer);
 			}
 		}
 	}
