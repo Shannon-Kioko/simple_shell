@@ -14,7 +14,7 @@ int builtin_env(ProgramData *data)
 
 	/* If no arguments */
 	if (data->tokens[1] == NULL)
-		print_environ(data);
+		print_env(data);
 	else
 	{
 		for (i = 0; data->tokens[1][i]; i++)
@@ -28,13 +28,13 @@ int builtin_env(ProgramData *data)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
 
 				/* Print the environment */
-				print_environ(data);
+				print_env(data);
 
 				if (env_get_key(var_name, data) == NULL)
 				{
 					/* Print the variable if it does not exist in the environment */
-					_print(data->tokens[1]);
-					_print("\n");
+					print_string(data->tokens[1]);
+					print_string("\n");
 				}
 				else
 				{
