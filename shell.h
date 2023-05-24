@@ -162,15 +162,15 @@ int builtin_alias(data_of_program *data);
 /*======== builtins_env.c ========*/
 
 /* Shows the environment where the shell runs */
-int builtin_env(ProgramData *data)
+int builtin_env(data_of_program *data)
 
 /* create or override a variable of env */
-int builtin_set_env(ProgramData *data)
+int builtin_set_env(data_of_program *data)
 
 /* delete a variable of env */
-int builtin_unset_env(ProgramData *data);
+int builtin_unset_env(data_of_program *data);
 
-int builtins_list(ProgramData *data)
+int builtins_list(data_of_program *data)
 
 
 /************** HELPERS FOR ENVIRONMENT VARIABLES MANAGEMENT **************/
@@ -242,13 +242,13 @@ int count_character_occurences(char *string, char *character);
 /*======== alias_management.c ========*/
 
 /* print the list of alias */
-int print_alias(ProgramData *data, char *alias_name)
+int print_alias(data_of_program *data, char *alias_name)
 
 /* get the alias name */
-char *get_alias(ProgramData *data, char *name)
+char *get_alias(data_of_program *data, char *name)
 
 /* set the alias name */
-int set_alias(char *alias_string, ProgramData *data)
+int set_alias(char *alias_string, data_of_program *data)
 
 
 #endif /* SHELL_H */
