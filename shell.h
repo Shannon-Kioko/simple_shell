@@ -161,7 +161,7 @@ int builtin_alias(data_of_program *data);
 
 /*======== builtins_env.c ========*/
 
-/* Shows the environment where the shell runs */
+/* builtin_env - Shows the environment where the shell runs */
 int builtin_env(data_of_program *data);
 
 /* create or override a variable of env */
