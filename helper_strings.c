@@ -133,7 +133,7 @@ char *str_concat(char *string1, char *string2)
 
 	if (string1 == NULL)
 		string1 = "";
-	
+
 	length1 = str_length(string1);
 
 	if (string2 == NULL)
