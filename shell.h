@@ -170,7 +170,7 @@ int builtin_set_env(data_of_program *data);
 /* delete a variable of env */
 int builtin_unset_env(data_of_program *data);
 
-int builtins_list(data_of_program *data)
+int builtins_list(data_of_program *data);
 
 
 /************** HELPERS FOR ENVIRONMENT VARIABLES MANAGEMENT **************/
