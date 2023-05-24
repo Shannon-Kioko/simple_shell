@@ -17,8 +17,7 @@ int print_alias(ProgramData *data, char *alias_name)
 		alias_length = str_length(alias_name);
 		for (i = 0; data->alias_list[i]; i++)
 		{
-			if (!alias_name || (str_compare(data->alias_list[i], \
-							alias_name, alias_length)
+			if (!alias_name || (str_compare(data->alias_list[i],alias_name, alias_length)
 				&& data->alias_list[i][alias_length] == '='))
 			{
 				for (j = 0; data->alias_list[i][j]; j++)
@@ -99,8 +98,6 @@ int set_alias(char *alias_string, ProgramData *data)
 			break;
 		}
 	}
-
-	/* Iterate through the alias list and check for a match */
 	for (j = 0; data->alias_list[j]; j++)
 	{
 		if (str_compare(buffer, data->alias_list[j], i) &&
