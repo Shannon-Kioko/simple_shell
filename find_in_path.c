@@ -8,7 +8,7 @@
  * Return: 0 Success, errcode otherwise
  */
 
-int find_program(data_of_program *data)
+int search_prog_in_path(data_of_program *data)
 {
 	int i = 0, ret_code = 0;
 	char **dir;
