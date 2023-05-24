@@ -12,7 +12,7 @@ void expand_var(data_of_program *data)
 
 	if (data->input_line == NULL)
 		return;
-	buffer_add(line, data->input_line);
+	buffer_append(line, data->input_line);
 	for (i = 0; line[i]; i++)
 	{
 		if (line[i] == '#')
@@ -21,8 +21,8 @@ void expand_var(data_of_program *data)
 		{
 			line[i] = '\0';
 			long_to_string(errno, expansion, 10);
-			buffer_add(line, expansion);
-			buffer_add(line, data->input_line + i + 2);
+			buffer_append(line, expansion);
+			buffer_append(line, data->input_line + i + 2);
 		}
 		else if (line[i] == '$' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
 			continue;
@@ -32,9 +32,9 @@ void expand_var(data_of_program *data)
 				expansion[j - 1] = line[i + j];
 			tmp = env_get_key(expansion, data);
 			line[i] = '\0', expansion[0] = '\0';
-			buffer_add(expansion, line + i + j);
-			tmp ? buffer_add(line, tmp) : 1;
-			buffer_add(line, expansion);
+			buffer_append(expansion, line + i + j);
+			tmp ? buffer_append(line, tmp) : 1;
+			buffer_append(line, expansion);
 		}
 	}
 	if (!str_compare(data->input_line, line, 0))
@@ -57,7 +57,7 @@ void expand_alias(data_of_program *data)
 	if (data->input_line == NULL)
 		return;
 
-	buffer_add(line, data->input_line);
+	buffer_append(line, data->input_line);
 
 	for (i = 0; line[i]; i++)
 	{
@@ -69,11 +69,11 @@ void expand_alias(data_of_program *data)
 		if (tmp)
 		{
 			expansion[0] = '\0';
-			buffer_add(expansion, line + i + j);
+			buffer_append(expansion, line + i + j);
 			line[i] = '\0';
-			buffer_add(line, tmp);
+			buffer_append(line, tmp);
 			line[str_length(line)] = '\0';
-			buffer_add(line, expansion);
+			buffer_append(line, expansion);
 			was_expanded = 1;
 		}
 		break;
@@ -86,12 +86,12 @@ void expand_alias(data_of_program *data)
 }
 
 /**
- * buffer_add - function appends string to the end of the buffer
+ * buffer_append - function appends string to the end of the buffer
  * @buffer: buffer to be filled
  * @str: string to be copied to the buffer
  * Return: Nothing
  */
-int buffer_add(char *buffer, char *str)
+int buffer_append(char *buffer, char *str)
 {
 	int len, i;
 
