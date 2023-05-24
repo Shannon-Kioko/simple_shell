@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * find_program - function finds a program in PATH
+ * search_prog_in_path - function finds a program in PATH
  *
  * @data: ptr to struct of progdata
  *
