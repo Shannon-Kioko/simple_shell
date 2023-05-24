@@ -20,7 +20,7 @@
 /************* STRUCTURES **************/
 
 /**
- * struct info- struct for the program's data
+ * struct program_info- struct for the program's data
  * @program_name: the name of the executable
  * @input_line: pointer to the input read for _getline
  * @command_name: pointer to the first command typed by the user
@@ -29,7 +29,7 @@
  * @file_descriptor: file descriptor to the input of commands
  * @env: copy of the environ
  * @alias_list: array of pointers with aliases.
- * 
+ *
  * Description: contains information on various struct members
  */
 typedef struct program_info
