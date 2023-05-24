@@ -43,35 +43,35 @@ int print_err(int err_code, data_of_program *data)
 
 	if (err_code == 2 || err_code == 3)
 	{
-		eprint(data->program_name);
-		eprint(": ");
-		eprint(n_as_a_string);
-		eprint(": ");
-		eprint(data->tokens[0]);
+		print_error_str(data->program_name);
+		print_error_str(": ");
+		print_error_str(n_as_a_string);
+		print_error_str(": ");
+		print_error_str(data->tokens[0]);
 		if (err_code == 2)
-			eprint(": Invalid number: ");
+			print_error_str(": Invalid number: ");
 		else
-			eprint(": Unable to change directory to ");
-		eprint(data->tokens[1]);
-		eprint("\n");
+			print_error_str(": Unable to change directory to ");
+		print_error_str(data->tokens[1]);
+		print_error_str("\n");
 	}
 	else if (err_code == 127)
 	{
-		eprint(data->program_name);
-		eprint(": ");
-		eprint(n_as_a_string);
-		eprint(": ");
-		eprint(data->command_name);
-		eprint(": not found\n");
+		print_error_str(data->program_name);
+		print_error_str(": ");
+		print_error_str(n_as_a_string);
+		print_error_str(": ");
+		print_error_str(data->command_name);
+		print_error_str(": not found\n");
 	}
 	else if (err_code == 126)
 	{
-		eprint(data->program_name);
-		eprint(": ");
-		eprint(n_as_a_string);
-		eprint(": ");
-		eprint(data->command_name);
-		eprint(": Permission denied\n");
+		print_error_str(data->program_name);
+		print_error_str(": ");
+		print_error_str(n_as_a_string);
+		print_error_str(": ");
+		print_error_str(data->command_name);
+		print_error_str(": Permission denied\n");
 	}
 	return (0);
 }
