@@ -12,12 +12,12 @@ int execute(data_of_program *data)
 
 	r = builtins_list(data);
 	if (r != -1)
-		return r;
+		return (r);
 
 	r = find_program(data);
 	if (r)
 	{
-		return r;
+		return (r);
 	}
 	else
 	{
@@ -42,6 +42,5 @@ int execute(data_of_program *data)
 				errno = 128 + WTERMSIG(status);
 		}
 	}
-	return 0;
+	return (0);
 }
-
