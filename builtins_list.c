@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * builtins_list - Search for a match and execute the associated builtin.
+ * builtin_executes - Search for a match and execute the associated builtin.
  * @data: Pointer to the program's data struct.
  *
  * Return: The return value of the executed function if there is a match,
  * otherwise returns -1.
  */
-int builtins_list(ProgramData *data)
+int builtin_executes(ProgramData *data)
 {
 	int iterator;
 	BuiltinPair options[] = {
