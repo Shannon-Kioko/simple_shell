@@ -33,14 +33,14 @@ char *_strtok(char *line, char *delim)
 	if (*copy_string == '\0')
 		return (NULL);
 
-	for (; *current_str != '\0'; current_str++)
+	for (; *current_string != '\0'; current_string++)
 	{
 		for (i = 0; delim[i] != '\0'; i++)
 		{
-			if (*current_str == delim[i])
+			if (*current_string == delim[i])
 			{
-				*current_str = '\0';
-				current_str++;
+				*current_string = '\0';
+				current_string++;
 				return (copy_string);
 			}
 		}
