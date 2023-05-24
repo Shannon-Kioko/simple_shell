@@ -41,8 +41,8 @@ int builtin_cd(data_of_program *data)
 			if (dir_old) {
 				error_code = set_work_directory(data, dir_old);
 			}
-			_print(env_get_key("PWD", data));
-			_print("\n");
+			print_string(env_get_key("PWD", data));
+			print_string("\n");
 
 			return error_code;
 		} else {
@@ -104,7 +104,7 @@ int builtin_help(data_of_program *data)
 	int i;
 
 	if (data->tokens[1] == NULL) {
-		_print(help_messages[0] + 6);
+		print_string(help_messages[0] + 6);
 		return 1;
 	}
 
@@ -116,7 +116,7 @@ int builtin_help(data_of_program *data)
 
 	for (i = 1; i < num_messages; i++) {
 		if (str_compare(data->tokens[1], help_messages[i], 0)) {
-			_print(help_messages[i] + str_length(data->tokens[1]) + 1);
+			print_string(help_messages[i] + str_length(data->tokens[1]) + 1);
 			return 1;
 		}
 	}
