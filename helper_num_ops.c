@@ -13,7 +13,7 @@ void long_to_string(long num, char *str, int base)
 	int index = 0, inNegative = 0;
 	long convi = num;
 	char letters[] = {"0123456789abcdef"};
-	
+
 	if (convi == 0)
 		str[index++] = '0';
 
