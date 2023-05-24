@@ -6,7 +6,7 @@
  *
  * Return: 0 on success, or other number if it's declared in the arguments.
  */
-int builtin_env(ProgramData *data)
+int builtin_env(data_of_program *data)
 {
 	int i;
 	char var_name[50] = {'\0'};
@@ -14,7 +14,7 @@ int builtin_env(ProgramData *data)
 
 	/* If no arguments */
 	if (data->tokens[1] == NULL)
-		print_env(data);
+		print_environ(data);
 	else
 	{
 		for (i = 0; data->tokens[1][i]; i++)
@@ -22,16 +22,19 @@ int builtin_env(ProgramData *data)
 			/* Check if '=' character exists */
 			if (data->tokens[1][i] == '=')
 			{
+				/* Temporarily change the value of an existing variable with the same name */
 				var_copy = str_duplicate(env_get_key(var_name, data));
 				if (var_copy != NULL)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
+
 				/* Print the environment */
-				print_env(data);
+				print_environ(data);
+
 				if (env_get_key(var_name, data) == NULL)
 				{
 					/* Print the variable if it does not exist in the environment */
-					print_string(data->tokens[1]);
-					print_string("\n");
+					_print(data->tokens[1]);
+					_print("\n");
 				}
 				else
 				{
@@ -39,14 +42,18 @@ int builtin_env(ProgramData *data)
 					env_set_key(var_name, var_copy, data);
 					free(var_copy);
 				}
+
 				return (0);
 			}
+
 			var_name[i] = data->tokens[1][i];
 		}
+
 		errno = 2;
 		perror(data->command_name);
 		errno = 127;
 	}
+
 	return (0);
 }
 
@@ -56,7 +63,7 @@ int builtin_env(ProgramData *data)
  *
  * Return: 0 on success, or other number if it's declared in the arguments.
  */
-int builtin_set_env(ProgramData *data)
+int builtin_set_env(data_of_program *data)
 {
 	/* Validate arguments */
 	if (data->tokens[1] == NULL || data->tokens[2] == NULL)
@@ -80,7 +87,7 @@ int builtin_set_env(ProgramData *data)
  *
  * Return: 0 on success, or other number if it's declared in the arguments.
  */
-int builtin_unset_env(ProgramData *data)
+int builtin_unset_env(data_of_program *data)
 {
 	/* Validate arguments */
 	if (data->tokens[1] == NULL)
