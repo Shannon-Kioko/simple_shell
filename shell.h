@@ -30,7 +30,7 @@
  * @env: copy of the environ
  * @alias_list: array of pointers with aliases.
  */
-struct program_info
+typedef struct program_info
 {
 	char *program_name;
 	char *input_line;
@@ -40,13 +40,7 @@ struct program_info
 	char **tokens;
 	char **env;
 	char **alias_list;
-};
-
-/**
- * data_of_program - Typedef for struct program_info
- */
-
-typedef struct program_info data_of_program;
+} data_of_program;
 
 /**
  * struct builtin_func - struct for the builtins
