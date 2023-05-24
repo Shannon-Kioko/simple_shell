@@ -29,6 +29,8 @@
  * @file_descriptor: file descriptor to the input of commands
  * @env: copy of the environ
  * @alias_list: array of pointers with aliases.
+ * 
+ * Description: contains information on various struct members
  */
 typedef struct program_info
 {
@@ -46,6 +48,7 @@ typedef struct program_info
  * struct builtin_func - struct for the builtins
  * @builtin: the name of the builtin
  * @function: the associated function to be called for each builtin
+ * Description: builtin function for the stuct
  */
 typedef struct builtin_func
 {
