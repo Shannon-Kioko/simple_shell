@@ -1,4 +1,4 @@
-x#include "shell.h"
+#include "shell.h"
 
 /**
  * print_alias - Print aliases or a specific alias.
