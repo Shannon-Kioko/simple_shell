@@ -32,13 +32,12 @@ int builtin_env(ProgramData *data)
 				print_env(data);
 				if (env_get_key(var_name, data) == NULL)
 				{
-					/* Print the variable if it does not exist in the environment */
 					print_string(data->tokens[1]);
 					print_string("\n");
 				}
 				else
 				{
-/* Restore the old value of the var */	env_set_key(var_name, var_copy, data);
+					env_set_key(var_name, var_copy, data);
 					free(var_copy);
 				}
 				return (0);
