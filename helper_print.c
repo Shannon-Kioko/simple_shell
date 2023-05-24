@@ -10,7 +10,7 @@
  */
 int print_error_str(char *str)
 {
-	return write(STDERR_FILENO, str, str_length(str));
+	return (write(STDERR_FILENO, str, str_length(str)));
 }
 
 /**
@@ -23,7 +23,7 @@ int print_error_str(char *str)
  */
 int print_string(char *str)
 {
-	return write(STDOUT_FILENO, str, str_length(str));
+	return (write(STDOUT_FILENO, str, str_length(str)));
 }
 
 /**
@@ -73,5 +73,5 @@ int print_err(int err_code, data_of_program *data)
 		eprint(data->command_name);
 		eprint(": Permission denied\n");
 	}
-	return 0;
+	return (0);
 }
