@@ -12,7 +12,7 @@ int builtin_executes(data_of_program *data)
 	int iterator;
 	BuiltinPair options[] = {
 		{"exit", builtin_exit},
-		{(int)"help", builtin_help},
+		{(int *)"help", builtin_help},
 		{"cd", builtin_cd},
 		{"alias", builtin_alias},
 		{"env", builtin_env},
