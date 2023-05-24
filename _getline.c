@@ -21,8 +21,9 @@ int builtin_env(ProgramData *data)
 			/* Check if '=' character exists */
 			if (data->tokens[1][i] == '=')
 			{
-				/** Temporarily change the value of an existing
-				 * variable with the same name 
+				/**
+				 * Temporarily change the value of an existing
+				 * variable with the same name
 				 */
 				var_copy = str_duplicate(env_get_key(var_name, data));
 				if (var_copy != NULL)
@@ -37,8 +38,7 @@ int builtin_env(ProgramData *data)
 				}
 				else
 				{
-					/* Restore the old value of the variable */
-					env_set_key(var_name, var_copy, data);
+/* Restore the old value of the var */	env_set_key(var_name, var_copy, data);
 					free(var_copy);
 				}
 				return (0);
