@@ -1,106 +1,95 @@
 #include "shell.h"
 
 /**
- * builtin_env - Show the environment where the shell runs.
+ * get_input_line - Read one line from the prompt.
  * @data: Pointer to the program's data struct.
  *
- * Return: 0 on success, or other number if it's declared in the arguments.
+ * Return: Number of bytes read.
  */
-int builtin_env(data_of_program *data)
+int get_input_line(data_of_program *data)
 {
-	int i;
-	char var_name[50] = {'\0'};
-	char *var_copy = NULL;
+	char buffer[BUFFER_SIZE] = {'\0'};
+	static char *command_array[10] = {NULL};
+	static char operator_array[10] = {'\0'};
+	ssize_t bytes_read, i = 0;
 
-	/* If no arguments */
-	if (data->tokens[1] == NULL)
-		print_env(data);
-	else
+	/* Check if there are no more commands in the array */
+	/* and check the logical operators */
+	if (!command_array[0] || (operator_array[0] == '&' && errno != 0) ||
+		(operator_array[0] == '|' && errno == 0))
 	{
-		for (i = 0; data->tokens[1][i]; i++)
+		/* Free the memory allocated in the array if it exists */
+		for (i = 0; command_array[i]; i++)
 		{
-			/* Check if '=' character exists */
-			if (data->tokens[1][i] == '=')
-			{
-				/* Temporarily change the value of an existing variable with the same name */
-				var_copy = str_duplicate(env_get_key(var_name, data));
-				if (var_copy != NULL)
-					env_set_key(var_name, data->tokens[1] + i + 1, data);
-
-				/* Print the environment */
-				print_env(data);
-
-				if (env_get_key(var_name, data) == NULL)
-				{
-					/* Print the variable if it does not exist in the environment */
-					print_string(data->tokens[1]);
-					print_string("\n");
-				}
-				else
-				{
-					/* Restore the old value of the variable */
-					env_set_key(var_name, var_copy, data);
-					free(var_copy);
-				}
-
-				return (0);
-			}
-
-			var_name[i] = data->tokens[1][i];
+			free(command_array[i]);
+			command_array[i] = NULL;
 		}
 
-		errno = 2;
-		perror(data->command_name);
-		errno = 127;
+		/* Read from the file descriptor into buffer */
+		bytes_read = read(data->file_descriptor, buffer, BUFFER_SIZE - 1);
+		if (bytes_read == 0)
+			return (-1);
+
+		/* Split lines on '\n' or ';' */
+		i = 0;
+		do {
+			command_array[i] = str_duplicate(_strtok(i ? NULL : buffer, "\n;"));
+			/* Check and split for '&&' and '||' operators */
+			i = check_logical_operators(command_array, i, operator_array);
+		} while (command_array[i++]);
 	}
 
-	return (0);
+	/* Obtain the next command (command 0) and remove it from the array */
+	data->input_line = command_array[0];
+	for (i = 0; command_array[i]; i++)
+	{
+		command_array[i] = command_array[i + 1];
+		operator_array[i] = operator_array[i + 1];
+	}
+
+	return (str_length(data->input_line));
 }
 
 /**
- * builtin_set_env - Set an environment variable.
- * @data: Pointer to the program's data struct.
+ * check_logical_operators - Check and split for '&&' and '||' operators.
+ * @commands: Array of commands.
+ * @index: Index of the command to be checked.
+ * @operators: Array of logical operators corresponding to each command.
  *
- * Return: 0 on success, or other number if it's declared in the arguments.
+ * Return: Index of the last command in the array.
  */
-int builtin_set_env(data_of_program *data)
+int check_logical_operators(char *commands[], int index, char operators[])
 {
-	/* Validate arguments */
-	if (data->tokens[1] == NULL || data->tokens[2] == NULL)
-		return (0);
+	char *temp = NULL;
+	int i;
 
-	if (data->tokens[3] != NULL)
+	/* Check for the '&' and '|' characters in the command line */
+	for (i = 0; commands[index] != NULL && commands[index][i]; i++)
 	{
-		errno = E2BIG;
-		perror(data->command_name);
-		return (5);
+		if (commands[index][i] == '&' && commands[index][i + 1] == '&')
+		{
+			/* Split the line when '&&' is found */
+			temp = commands[index];
+			commands[index][i] = '\0';
+			commands[index] = str_duplicate(commands[index]);
+			commands[index + 1] = str_duplicate(temp + i + 2);
+			index++;
+			operators[index] = '&';
+			free(temp);
+			i = 0;
+		}
+		else if (commands[index][i] == '|' && commands[index][i + 1] == '|')
+		{
+			/* Split the line when '||' is found */
+			temp = commands[index];
+			commands[index][i] = '\0';
+			commands[index] = str_duplicate(commands[index]);
+			commands[index + 1] = str_duplicate(temp + i + 2);
+			index++;
+			operators[index] = '|';
+			free(temp);
+			i = 0;
+		}
 	}
-
-	env_set_key(data->tokens[1], data->tokens[2], data);
-
-	return (0);
-}
-
-/**
- * builtin_unset_env - Unset an environment variable.
- * @data: Pointer to the program's data struct.
- *
- * Return: 0 on success, or other number if it's declared in the arguments.
- */
-int builtin_unset_env(data_of_program *data)
-{
-	/* Validate arguments */
-	if (data->tokens[1] == NULL)
-		return (0);
-
-	if (data->tokens[2] != NULL)
-	{
-		errno = E2BIG;
-		perror(data->command_name);
-		return (5);
-	}
-
-	env_remove_key(data->tokens[1], data);
-
-	return (0);
+	return index;
 }
