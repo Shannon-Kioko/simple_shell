@@ -45,23 +45,3 @@ bool has_character(const char *str, char c)
 
 	return false;
 }
-
-/**
- * check_file - Check if a file exists at the given path.
- * @file_path: The path of the file to be checked.
- *
- * Return: True if the file exists, false otherwise.
- */
-bool check_file(const char *file_path)
-{
-	FILE *file;
-
-	file = fopen(file_path, "r");
-	if (file != NULL)
-	{
-		fclose(file);
-		return true;
-	}
-
-	return false;
-}
