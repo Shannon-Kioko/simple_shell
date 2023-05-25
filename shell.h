@@ -12,6 +12,7 @@
 #include <fcntl.h> /* for open files*/
 #include <sys/stat.h> /* for use of stat function */
 #include <signal.h> /* for signal management */
+#include <stdbool.h>
 
 /************* MACROS **************/
 
@@ -79,6 +80,17 @@ int _getline(data_of_program *data);
 
 /* Split the line for logical operators if they exist */
 int split_ops_logical(char *array_commands[], int i, char array_operators[]);
+
+/*======== shell_utils.c ========*/
+
+/* check if a string represents a valid integer */
+bool is_number(const char *str);
+
+/*  check if a string contains a specific character. */
+bool has_character(const char *str, char c);
+
+/* check if a file exists at the given path. */
+bool check_file(const char *file_path);
 
 
 /*======== expansions.c ========*/
