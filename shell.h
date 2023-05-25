@@ -90,7 +90,7 @@ bool is_number(const char *str);
 bool has_character(const char *str, char c);
 
 /* check if a file exists at the given path. */
-bool check_file(const char *file_path);
+// bool check_file(const char *file_path);
 
 
 /*======== expansions.c ========*/
