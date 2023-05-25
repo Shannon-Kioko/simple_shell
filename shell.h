@@ -134,6 +134,9 @@ char **tokenize_path(data_of_program *data);
 /* Search for a program in the PATH directories */
 int search_prog_in_path(data_of_program *data);
 
+/* check if a file exists and is executable. */
+int check_file(char *full_path); 
+
 
 /************** HELPERS FOR MEMORY MANAGEMENT **************/
 
