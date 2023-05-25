@@ -2,38 +2,39 @@
 Collaborative project on building a simple shell with John Ombuya and I, Shannon Kioko.
 
 Files in this repository:
-###_getline.c
+
+### _getline.c
 Works same as getline function that reads from stream
-###alias_management.c
+### alias_management.c
 
-###builtin_envs
+### builtin_envs
 
-###builtin_list.c
+### builtin_list.c
 
-###builtins_more.c
+### builtins_more.c
 
-###env_managemnet
+### env_managemnet
 
-###execute.c 
+### execute.c 
 
-###expansions.c
+### expansions.c
 
-###find_in_path.c
+### find_in_path.c
 
-###helper_free.c
+### helper_free.c
 
-###helper_num_ops.c
+### helper_num_ops.c
 
-###helper_print.c
+### helper_print.c
 
-###helper_strings.c
+### helper_strings.c
 
-###macros.h
+### macros.h
 
-###main.c
+### main.c
 
-###shell.h
+### shell.h
 
-###str_token.c
+### str_token.c
 
-###tokenizer.c
+### tokenizer.c
