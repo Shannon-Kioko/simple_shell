@@ -11,9 +11,8 @@ int main(int argc, char *argv[], char *env[])
 {
 	data_of_program data_struct = {NULL}, *data = &data_struct;
 	char *prompt = "";
-
+	
 	data_init(data, argc, argv, env);
-
 	signal(SIGINT, handle_ctrl_c);
 
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
