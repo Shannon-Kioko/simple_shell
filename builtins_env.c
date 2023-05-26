@@ -22,7 +22,7 @@ int builtin_env(data_of_program *data)
 			/* Check if '=' character exists */
 			if (data->tokens[1][i] == '=')
 			{
-				/* Temporarily change the value of an existing variable with the same name */
+	/* Temporarily change the value of an existing variable with the same name */
 				var_copy = str_duplicate(env_get_key(var_name, data));
 				if (var_copy != NULL)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
