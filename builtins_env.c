@@ -26,7 +26,6 @@ int builtin_env(data_of_program *data)
 				var_copy = str_duplicate(env_get_key(var_name, data));
 				if (var_copy != NULL)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
-
 				print_env(data);
 				if (env_get_key(var_name, data) == NULL)
 				{
