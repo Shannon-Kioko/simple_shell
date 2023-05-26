@@ -33,6 +33,10 @@ int main(int argc, char *argv[], char *env[])
  */
 void handle_ctrl_c(int signal_number)
 {
+	if (signal_number == SIGINT)
+	{
+        print_string("Received SIGINT signal\n");
+	}
 	print_string("\n");
 	print_string(PROMPT_MSG);
 }
