@@ -10,7 +10,7 @@ int execute(data_of_program *data)
 	int r = 0, status;
 	pid_t pidd;
 
-	r = builtins_list(data);
+	r = builtin_executes(data);
 	if (r != -1)
 		return (r);
 
