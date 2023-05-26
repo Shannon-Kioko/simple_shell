@@ -117,7 +117,7 @@ int env_remove_key(char *key, data_of_program *data)
  * @data: struct for the program's data.
  * Return: nothing.
  */
-void print_environ(data_of_program *data)
+void print_env(data_of_program *data)
 {
 	int j;
 
