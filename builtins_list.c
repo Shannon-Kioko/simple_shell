@@ -1,11 +1,5 @@
 #include "shell.h"
 
-typedef struct BuiltinPair
-{
-	char *builtin;
-	int (*function)(data_of_program *);
-} BuiltinPair;
-
 int builtin_exit(data_of_program *data);
 int builtin_help(data_of_program *data);
 int builtin_cd(data_of_program *data);
