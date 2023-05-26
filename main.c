@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	data_of_program data_struct = {NULL}, *data = &data_struct;
 	char *prompt = "";
-	
+
 	data_init(data, argc, argv, env);
 	signal(SIGINT, handle_ctrl_c);
 
@@ -68,7 +68,6 @@ void data_init(data_of_program *data, int argc, char *argv[], char **env)
 			exit(127);
 		}
 	}
-
 	data->tokens = NULL;
 
 	data->env = malloc(sizeof(char *) * 50);
