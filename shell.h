@@ -57,6 +57,12 @@ typedef struct builtin_func
 	int (*function)(data_of_program *data);
 } builtins;
 
+typedef struct BuiltinPair
+{
+	char *builtin;
+	int (*function)(data_of_program *);
+} BuiltinPair;
+
 
 /************* MAIN FUNCTIONS *************/
 
