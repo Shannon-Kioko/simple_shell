@@ -34,7 +34,6 @@ int print_alias(data_of_program *data, char *alias_name)
 			}
 		}
 	}
-
 	return (0);
 }
 
@@ -98,32 +97,24 @@ int set_alias(char *alias_string, data_of_program *data)
 			break;
 		}
 	}
-
-	/* Iterate through the alias list and check for a match */
 	for (j = 0; data->alias_list[j]; j++)
 	{
 		if (str_compare(buffer, data->alias_list[j], i) &&
 			data->alias_list[j][i] == '=')
 		{
-			/* If the alias already exists, free the previous value */
 			free(data->alias_list[j]);
 			break;
 		}
 	}
-
-	/* Add or override the alias */
 	if (alias_value)
 	{
-		/* If the alias value is another alias */
 		buffer_append(buffer, "=");
 		buffer_append(buffer, alias_value);
 		data->alias_list[j] = str_duplicate(buffer);
 	}
 	else
 	{
-		/* If the alias value is a regular value */
 		data->alias_list[j] = str_duplicate(alias_string);
 	}
-
 	return (0);
 }
