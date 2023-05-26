@@ -91,5 +91,5 @@ int check_logical_operators(char *commands[], int index, char operators[])
 			i = 0;
 		}
 	}
-	return index;
+	return (index);
 }
