@@ -18,11 +18,11 @@ bool is_number(const char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] < '0' || str[i] > '9')
-			return false;
+			return (false);
 		i++;
 	}
 
-	return true;
+	return (true);
 }
 
 /**
@@ -39,9 +39,9 @@ bool has_character(const char *str, char c)
 	while (str[i] != '\0')
 	{
 		if (str[i] == c)
-			return true;
+			return (true);
 		i++;
 	}
 
-	return false;
+	return (false);
 }
