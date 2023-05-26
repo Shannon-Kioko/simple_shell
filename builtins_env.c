@@ -27,28 +27,22 @@ int builtin_env(data_of_program *data)
 				if (var_copy != NULL)
 					env_set_key(var_name, data->tokens[1] + i + 1, data);
 
-				/* Print the environment */
 				print_env(data);
-
 				if (env_get_key(var_name, data) == NULL)
 				{
-					/* Print the variable if it does not exist in the environment */
 					print_string(data->tokens[1]);
 					print_string("\n");
 				}
 				else
 				{
-					/* Restore the old value of the variable */
 					env_set_key(var_name, var_copy, data);
 					free(var_copy);
 				}
 
 				return (0);
 			}
-
 			var_name[i] = data->tokens[1][i];
 		}
-
 		errno = 2;
 		perror(data->command_name);
 		errno = 127;
