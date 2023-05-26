@@ -31,7 +31,7 @@ int main(int argc, char *argv[], char *env[])
  * handle_ctrl_c - Handles the SIGINT signal (ctrl + c) by printing a new line.
  * @UNUSED: Unused parameter.
  */
-void handle_ctrl_c(int UNUSED)
+void handle_ctrl_c(void)
 {
 	print_string("\n");
 	print_string(PROMPT_MSG);
