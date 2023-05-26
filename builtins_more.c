@@ -16,7 +16,7 @@ int builtin_exit(data_of_program *data)
 		if (!is_number(data->tokens[1]))
 		{
 			errno = EINVAL;
-			return 2;
+			return (2);
 		}
 
 		exit_status = _atoi(data->tokens[1]);
@@ -51,11 +51,11 @@ int builtin_cd(data_of_program *data)
 			print_string(env_get_key("PWD", data));
 			print_string("\n");
 
-			return error_code;
+			return (error_code);
 		}
 		else
 		{
-			return set_work_directory(data, data->tokens[1]);
+			return (set_work_directory(data, data->tokens[1]));
 		}
 	}
 	else
@@ -65,10 +65,10 @@ int builtin_cd(data_of_program *data)
 			dir_home = getcwd(old_dir, sizeof(old_dir));
 		}
 
-		return set_work_directory(data, dir_home);
+		return (set_work_directory(data, dir_home));
 	}
 
-	return 0;
+	return (0);
 }
 
 /**
@@ -91,12 +91,12 @@ int set_work_directory(data_of_program *data, char *new_dir)
 		if (err_code == -1)
 		{
 			errno = ENOENT;
-			return 3;
+			return (3);
 		}
 		env_set_key("PWD", new_dir, data);
 	}
 	env_set_key("OLDPWD", old_dir, data);
-	return 0;
+	return (0);
 }
 
 /**
@@ -122,14 +122,14 @@ int builtin_help(data_of_program *data)
 	if (data->tokens[1] == NULL)
 	{
 		print_string(help_messages[0] + 6);
-		return 1;
+		return (1);
 	}
 
 	if (data->tokens[2] != NULL)
 	{
 		errno = E2BIG;
 		perror(data->command_name);
-		return 5;
+		return (5);
 	}
 
 	for (i = 1; i < num_messages; i++)
@@ -137,13 +137,13 @@ int builtin_help(data_of_program *data)
 		if (str_compare(data->tokens[1], help_messages[i], 0))
 		{
 			print_string(help_messages[i] + str_length(data->tokens[1]) + 1);
-			return 1;
+			return (1);
 		}
 	}
 
 	errno = EINVAL;
 	perror(data->command_name);
-	return 0;
+	return (0);
 }
 
 /**
@@ -158,7 +158,7 @@ int builtin_alias(data_of_program *data)
 
 	if (data->tokens[1] == NULL)
 	{
-		return print_alias(data, NULL);
+		return (print_alias(data, NULL));
 	}
 
 	while (data->tokens[++i])
@@ -173,5 +173,5 @@ int builtin_alias(data_of_program *data)
 		}
 	}
 
-	return 0;
+	return (0);
 }
