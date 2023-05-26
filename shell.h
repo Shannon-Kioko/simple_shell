@@ -76,10 +76,10 @@ void handle_ctrl_c(int opr UNUSED);
 /*========  _getline.c  ========*/
 
 /* Read one line of the stdin*/
-int get_input_line(data_of_program *data)
+int get_input_line(data_of_program *data);
 
 /* Split the line for logical operators if they exist */
-int check_logical_operators(char *commands[], int index, char operators[])
+int check_logical_operators(char *commands[], int index, char operators[]);
 
 /*======== shell_utils.c ========*/
 
