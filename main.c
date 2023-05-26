@@ -103,7 +103,7 @@ void prompt_loop(char *prompt, data_of_program *data)
 	{
 		print_string(prompt);
 
-		error_code = string_len = _getline(data);
+		error_code = string_len = get_input_line(data);
 
 		if (error_code == EOF)
 		{
