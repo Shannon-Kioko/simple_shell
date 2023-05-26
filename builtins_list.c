@@ -1,8 +1,9 @@
 #include "shell.h"
 
-typedef struct BuiltinPair {
-    char *builtin;
-    int (*function)(data_of_program *);
+typedef struct BuiltinPair
+{
+	char *builtin;
+	int (*function)(data_of_program *);
 } BuiltinPair;
 
 int builtin_exit(data_of_program *data);
@@ -22,29 +23,29 @@ int builtin_unset_env(data_of_program *data);
  */
 int builtin_executes(data_of_program *data)
 {
-    int iterator;
-    BuiltinPair options[] = {
-        {"exit", builtin_exit},
-        {"help", builtin_help},
-        {"cd", builtin_cd},
-        {"alias", builtin_alias},
-        {"env", builtin_env},
-        {"setenv", builtin_set_env},
-        {"unsetenv", builtin_unset_env},
-        {NULL, NULL}
-    };
+	int iterator;
+	BuiltinPair options[] = {
+		{"exit", builtin_exit},
+		{"help", builtin_help},
+		{"cd", builtin_cd},
+		{"alias", builtin_alias},
+		{"env", builtin_env},
+		{"setenv", builtin_set_env},
+		{"unsetenv", builtin_unset_env},
+		{NULL, NULL}
+	};
 
-    /* Iterate through the builtin options */
-    for (iterator = 0; options[iterator].builtin != NULL; iterator++)
-    {
-        /* Check for a match between the given command and a builtin */
-        if (str_compare(options[iterator].builtin, data->command_name, 0))
-        {
-            /* Execute the associated function and return its return value */
-            return (options[iterator].function(data));
-        }
-    }
+	/* Iterate through the builtin options */
+	for (iterator = 0; options[iterator].builtin != NULL; iterator++)
+	{
+		/* Check for a match between the given command and a builtin */
+		if (str_compare(options[iterator].builtin, data->command_name, 0))
+		{
+			/* Execute the associated function and return its return value */
+			return (options[iterator].function(data));
+		}
+	}
 
-    /* If there is no match, return -1 */
-    return (-1);
+	/* If there is no match, return -1 */
+	return (-1);
 }
