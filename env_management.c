@@ -116,7 +116,7 @@ int env_remove_key(char *key, data_of_program *data)
  * print_env - prints the current environment.
  * @data: struct for the program's data.
  * Return: nothing.
- * Description: prints the current environment. 
+ * Description: prints the current environment.
  */
 void print_env(data_of_program *data)
 {
