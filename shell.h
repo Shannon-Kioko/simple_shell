@@ -76,7 +76,7 @@ void data_init(data_of_program *data, int arc, char *argv[], char **env);
 void prompt_loop(char *prompt, data_of_program *data);
 
 /* Prints the prompt in a new line */
-void handle_ctrl_c(int opr UNUSED);
+void handle_ctrl_c(void);
 
 
 /*========  _getline.c  ========*/
